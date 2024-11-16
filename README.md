@@ -1,2 +1,2 @@
 # nfactorial-homeworks
-Here are assignments on course
+All my assignments on backend-Python nfactorial course
