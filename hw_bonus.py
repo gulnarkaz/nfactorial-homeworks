@@ -1,108 +1,94 @@
 """
-💎 Exercise-1: count_substrings
-Write a function "count_substrings(s: str, subs: str) -> int" that takes 
-two strings 's' and 'subs' and returns the number of non-overlapping 
-occurrences of the substring 'subs' in the string 's'.
+💎rite a function "two_sum(nums: list, target: int) -> tuple" that takes a list of integers
+and a target integer. It should return a tuple of two indices whose elements add up to the target.
+Assume that each input would have exactly one solution, and you may not use the same element twice.
 
 Example:
-count_substrings("ababab", "ab") -> 3
-count_substrings("aaaaaa", "aa") -> 3
+two_sum([2, 7, 11, 15], 9) -> (0, 1)
 """
 
-def count_substrings(s: str, subs: str) -> int:
-    counter = 0
-    new_str = s.lower().split(subs)
-    new_subs = subs.lower()
-
-    for new_subs in range(len(new_str) - 1):
-        if len(str(new_subs)) > 0:
-            counter += 1
-    return counter
-
+def two_sum(nums: list, target: int) -> tuple:
+    index_map = {}
+    for index, num in enumerate(nums):
+        complement = target - num
+        if complement in index_map:
+            return (index_map[complement], index)
+        index_map[num] = index
+    return ()
 
 """
-💎 Exercise-2: find_smallest_divisor
-Write a function "find_smallest_divisor(n: int) -> int" that 
-takes a positive integer 'n' and returns the smallest prime divisor of 'n'.
+💎 Exercise-2: Isomorphic Strings
+Write a function "is_isomorphic(s: str, t: str) -> bool" that takes two strings s and t
+and determines if they are isomorphic. Two strings s and t are isomorphic if the characters
+in s can be replaced to get t, and all characters in s map to exactly one character in t and vice versa.
 
 Example:
-find_smallest_divisor(21) -> 3
-find_smallest_divisor(49) -> 7
+is_isomorphic('egg', 'add') -> True
 """
 
-def find_smallest_divisor(n: int) -> int:
-    if n <= 1:
-        return None
-
-    for number in range(2, int(n) + 1):
-        if n % int(number) == 0:
-            return number
-
-
-"""
-💎 Exercise-3: check_divisible_by_any
-Write a function "check_divisible_by_any(n: int, divisors: str) -> bool" that 
-takes a positive integer 'n' and a string 'divisors' containing a sequence of 
-space-separated integers, and returns True if 'n' is divisible by 
-any of the integers in the 'divisors' string.
-
-Example:
-check_divisible_by_any(24, "2 3 5") -> True
-check_divisible_by_any(23, "2 3 5") -> False
-"""
-
-def check_divisible_by_any(n: int, divisors: str) -> bool:
-    if n <= 1:
+def is_isomorphic(s: str, t: str) -> bool:
+    if len(s) != len(t):
         return False
-    divisor = list(map(int, divisors.split(" ")))
-    for number in divisor:
-        if n % number == 0:
-            return True
-    return False
 
-
-"""
-💎 Exercise-4: find_nth_root
-Write a function "find_nth_root(x: float, n: int) -> float" that 
-takes a float 'x' and an integer 'n' and returns the 'n'-th root 
-of 'x' with a precision of up to 3 decimal places.
-
-Example:
-find_nth_root(8, 3) -> 2.0
-find_nth_root(81, 4) -> 3.0
-"""
-
-def find_nth_root(x: float, n: int) -> float:
-    if n <= 0:
-        return None
-    if n == 1:
-        return round(x, 3)
-    if n >= 1:
-        return round(x**(1/n), 3)
-
-
-"""
-💎 Exercise-5: collatz_sequence_length
-Write a function "collatz_sequence_length(n: int) -> int" that takes a 
-positive integer 'n' and returns the number of steps it takes to reach 1 
-using the Collatz conjecture. The Collatz conjecture states that for 
-any positive integer 'n', if 'n' is even, it should be divided by 2; 
-if 'n' is odd, it should be multiplied by 3 and then add 1. Repeat this 
-process until 'n' becomes 1.
-
-Example:
-collatz_sequence_length(6) -> 8
-collatz_sequence_length(27) -> 111
-"""
-
-def collatz_sequence_length(n: int) -> int:
-    lenght = 0
-    while n != 1:
-        if n % 2 == 0:
-            n //= 2
+    mapping = {}
+    for char_s, char_t in zip(s, t):
+        if char_s in mapping:
+            if mapping[char_s] != char_t:
+                return False
         else:
-            n = 3 * n + 1
-        lenght += 1
+            mapping[char_s] = char_t
 
-    return lenght
+    reverse_mapping = {}
+    for char_s, char_t in mapping.items():
+        if char_t in reverse_mapping:
+            return False
+        reverse_mapping[char_t] = char_s
 
+    return True
+
+"""
+💎 Exercise-3: Check Alien Dictionary
+Write a function "is_alien_sorted(words: list, order: str) -> bool" that checks if words
+are sorted lexicographicaly according to a new character order provided in the string order.
+
+Example:
+is_alien_sorted(["hello","leetcode"], "hlabcdefgijkmnopqrstuvwxyz") -> True
+"""
+
+def is_alien_sorted(words: list, order: str) -> bool:
+    pass
+
+"""
+💎 Exercise-4: Longest Substring Without Repeating Characters
+Write a function "length_of_longest_substring(s: str) -> int" that takes a string s,
+and returns the length of the longest substring without repeating characters.
+
+Example:
+length_of_longest_substring('abcabcbb') -> 3
+"""
+
+def length_of_longest_substring(s: str) -> int:
+    charSet = set()
+    l = 0
+    result = 0
+
+    for r in range(len(s)):
+        while s[r] in charSet:
+            charSet.remove(s[l])
+            l += 1
+        charSet.add(s[r])
+        result = max(result, r - l + 1)
+    return result
+"""
+💎 Exercise-5: Group Shifted Strings
+Write a function "group_shifted(strings: list) -> list" that takes a
+list of lowercase strings and groups all strings that are generated by shifting some letters
+of another string circularly. Return a list of groups, each group is a list of strings.
+Groups and strings within a group can be in any order.
+
+Example:
+group_shifted(["abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"]) -> [["abc","bcd"],["acef"],["xyz"],["az","ba"],["a","z"]]
+"""
+
+def group_shifted(strings: list) -> list:
+    pass

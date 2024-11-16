@@ -1,63 +1,42 @@
 import unittest
-from hw_bonus import *  
 
+import hw_bonus
 
-class TestFunctions(unittest.TestCase):
-    """
-    💎 Test exercise-1
-    """
+class TestFunctions(unittest.TestCase): 
+    def test_two_sum(self):
+        self.assertEqual(hw_bonus.two_sum([2, 7, 11, 15], 9), (0, 1))
+        self.assertEqual(hw_bonus.two_sum([3, 2, 4], 6), (1, 2))
+        self.assertEqual(hw_bonus.two_sum([1]*10**6 + [2, 3], 5), (10**6, 10**6 + 1))
+        self.assertEqual(hw_bonus.two_sum([2, 7, 11, 15]*10**5 + [5, 7], 12), (400000, 400001))
+        self.assertEqual(hw_bonus.two_sum([1, 3], 4), (0, 1))
 
-    def test_count_substrings(self):
-        self.assertEqual(count_substrings("ababab", "ab"), 3)
-        self.assertEqual(count_substrings("aaaaaa", "aa"), 3)
-        self.assertEqual(count_substrings("hello world", "l"), 3)
-        self.assertEqual(count_substrings("xyzxyzxyz", "xyz"), 3)
-        self.assertEqual(count_substrings("a" * 1000, "aa"), 500)
+    def test_is_isomorphic(self):
+        self.assertEqual(hw_bonus.is_isomorphic('egg', 'add'), True)
+        self.assertEqual(hw_bonus.is_isomorphic('foo', 'bar'), False)
+        self.assertEqual(hw_bonus.is_isomorphic('ab'*10**5, 'cd'*10**5), True)
+        self.assertEqual(hw_bonus.is_isomorphic('aa'*10**5, 'ab'*10**5), False)
+        self.assertEqual(hw_bonus.is_isomorphic('abcd', 'dcba'), False)
 
-    """
-    💎 Test exercise-2
-    """
+    def test_is_alien_sorted(self):
+        self.assertEqual(hw_bonus.is_alien_sorted(["hello","leetcode"], "hlabcdefgijkmnopqrstuvwxyz"), True)
+        self.assertEqual(hw_bonus.is_alien_sorted(["word", "world", "row"], "worldabcefghijkmnpqstuvxyz"), False)
+        self.assertEqual(hw_bonus.is_alien_sorted(["apple","app"], "abcdefghijklmnopqrstuvwxyz"), False)
+        self.assertEqual(hw_bonus.is_alien_sorted(["apple","app"]*10**5, "abcdefghijklmnopqrstuvwxyz"), False)
+        self.assertEqual(hw_bonus.is_alien_sorted(["a", "b", "c"], "abcdefghijklmnopqrstuvwxyz"), True)
 
-    def test_find_smallest_divisor(self):
-        self.assertEqual(find_smallest_divisor(21), 3)
-        self.assertEqual(find_smallest_divisor(49), 7)
-        self.assertEqual(find_smallest_divisor(169), 13)
-        self.assertEqual(find_smallest_divisor(77), 7)
-        self.assertEqual(find_smallest_divisor(123456789), 3)
+    def test_length_of_longest_substring(self):
+        self.assertEqual(hw_bonus.length_of_longest_substring('abcabcbb'), 3)
+        self.assertEqual(hw_bonus.length_of_longest_substring('bbbbbb'), 1)
+        self.assertEqual(hw_bonus.length_of_longest_substring('pwwkew'), 3)
+        self.assertEqual(hw_bonus.length_of_longest_substring('a'*10**6), 1)
+        self.assertEqual(hw_bonus.length_of_longest_substring('abc'*10**5), 3)
 
-    """
-    💎 Test exercise-3
-    """
+    def test_group_shifted(self):
+        self.assertEqual(hw_bonus.group_shifted(["abc", "bcd", "acef", "xyz", "az", "ba", "a", "z"]), [["abc","bcd"],["acef"],["xyz"],["az","ba"],["a","z"]])
+        self.assertEqual(hw_bonus.group_shifted(["abc", "bcd", "acef"]), [["abc","bcd"],["acef"]])
+        self.assertEqual(hw_bonus.group_shifted(["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]), [["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]])
+        self.assertEqual(hw_bonus.group_shifted(["abc"]*10**5), [["abc"]*10**5])
+        self.assertEqual(hw_bonus.group_shifted(["abc", "bcd", "cde", "def", "efg", "fgh", "ghi", "hij", "ijk", "jkl", "klm", "lmn", "mno", "nop", "opq", "pqr", "qrs", "rst", "stu", "tuv", "uvw", "vwx", "wxy", "xyz"]), [["abc", "bcd", "cde", "def", "efg", "fgh", "ghi", "hij", "ijk", "jkl", "klm", "lmn", "mno", "nop", "opq", "pqr", "qrs", "rst", "stu", "tuv", "uvw", "vwx", "wxy", "xyz"]])
 
-    def test_check_divisible_by_any(self):
-        self.assertEqual(check_divisible_by_any(24, "2 3 5"), True)
-        self.assertEqual(check_divisible_by_any(23, "2 3 5"), False)
-        self.assertEqual(check_divisible_by_any(20, "4 5 6"), True)
-        self.assertEqual(check_divisible_by_any(19, "2 3 5"), False)
-        self.assertEqual(check_divisible_by_any(123456789, "2 3 5 7 11"), True)
-
-    """
-    💎 Test exercise-4
-    """
-
-    def test_find_nth_root(self):
-        self.assertAlmostEqual(find_nth_root(8, 3), 2.0, places=3)
-        self.assertAlmostEqual(find_nth_root(81, 4), 3.0, places=3)
-        self.assertAlmostEqual(find_nth_root(16, 4), 2.0, places=3)
-        self.assertAlmostEqual(find_nth_root(100, 2), 10.0, places=3)
-        self.assertAlmostEqual(find_nth_root(1000000, 6), 10.0, places=3)
-
-    """
-    💎 Test exercise-5
-    """
-
-    def test_collatz_sequence_length(self):
-        self.assertEqual(collatz_sequence_length(6), 8)
-        self.assertEqual(collatz_sequence_length(27), 111)
-        self.assertEqual(collatz_sequence_length(12), 9)
-        self.assertEqual(collatz_sequence_length(7), 16)
-        self.assertEqual(collatz_sequence_length(999999), 258)
-
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

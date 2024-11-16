@@ -1,356 +1,211 @@
 """
-Exercise-1: is_prime
-Write a function "is_prime(n: int) -> bool" that takes an integer 'n' 
-and checks whether it is prime. Function should return a boolean value.
+Exercise-1: Find missing elements
+Write a function "missing_elements(my_list: list) -> list" that takes a
+sorted list of integers and returns a list of missing integers in the range of the list.
 
 Example:
-is_prime(7) -> True
-is_prime(10) -> False
+missing_elements([1, 2, 4, 6, 7]) -> [3, 5]
 """
 
-def is_prime(n: int) -> bool:
-    if n <= 1:
-        return False
-    if n == 2:
-        return True
-    if n % 2 == 0:
-        return False
-    for i in range(3, int(n ** 0.5) + 1, 2):
-        if n % i == 0:
-            return False
-    return True
+def missing_elements(my_list: list) -> list:
+    if not my_list:
+        return []
+    missing_list = []
+    for element in range(my_list[0], my_list[-1] + 1):
+        if element not in my_list:
+            missing_list.append(element)
+
+    return missing_list
+
 """
-Exercise-2: nth_fibonacci
-Write a function "nth_fibonacci(n: int) -> int" that 
-takes an integer 'n' and returns the nth number in the Fibonacci sequence.
+Exercise-2: Count occurrences
+Write a function "count_occurrences(my_list: list) -> dict" that takes a
+list of integers and returns a dictionary where keys are unique integers
+from the list and values are their counts in the list.
 
 Example:
-nth_fibonacci(6) -> 5
-nth_fibonacci(9) -> 21
+count_occurrences([1, 2, 3, 1, 2, 4, 5, 4]) -> {1: 2, 2: 2, 3: 1, 4: 2, 5: 1}
 """
 
-def nth_fibonacci(n: int) -> int:
-    f1, f2 = 0, 1
-    if n == 1:
-        return f1
-    if n == 2:
-        return f2
+def count_occurrences(my_list: list) -> dict:
+    dictionary = {}
+    for key in set(my_list):
+        dictionary[key] = 0
+    for key in my_list:
+        dictionary[key] += 1
+    return dictionary
 
-    i = 2
-    while i < n:
-        f1, f2 = f2, f1 + f2
-        i += 1
-    return f2
 
 """
-Exercise-3: factorial
-Write a function "factorial(n: int) -> int" that takes an integer 'n' and returns the factorial of 'n'.
+Exercise-4: Common elements
+Write a function "common_elements(list1: list, list2: list) -> list" that takes two
+lists of integers and returns a list of unique common elements.
 
 Example:
-factorial(5) -> 120
-factorial(6) -> 720
+common_elements([1, 2, 3, 4, 5], [3, 4, 5, 6, 7]) -> [3, 4, 5]
 """
 
-def factorial(n: int) -> int:
-    if n == 0:
-        return 1
-    count = 1
-    for i in range(1, n+1):
-        count *= i
-    return count
+def common_elements(list1: list, list2: list) -> list:
+    return list(set(list1) & set(list2))
 
 """
-Exercise-4: count_vowels
-Write a function "count_vowels(s: str) -> int" that 
-takes a string 's' and returns the number of vowels in the string.
+Exercise-5: Character frequency
+Write a function "char_frequency(my_string: str) -> dict" that takes a
+string and returns a dictionary with the frequency of each character in the string.
 
 Example:
-count_vowels("hello") -> 2
-count_vowels("world") -> 1
+char_frequency('hello world') -> {'h': 1, 'e': 1, 'l': 3, 'o': 2, ' ': 1, 'w': 1, 'r': 1, 'd': 1}
 """
 
-def count_vowels(s: str) -> int:
-    vowels = 'a, e, i, o, u'
-    count = 0
-    for letter in s.lower():
-        if letter in vowels:
-            count += 1
-    return count
+def char_frequency(my_string: str) -> dict:
+    dictionary = {}
+    for char in set(my_string):
+        dictionary[char] = 0
+    for char in my_string:
+        dictionary[char] += 1
+
+    return dictionary
 
 """
-Exercise-5: sum_of_digits
-Write a function "sum_of_digits(n: int) -> int" that 
-takes an integer 'n' and returns the sum of its digits.
+Exercise-6: Unique words
+Write a function "unique_words(my_string: str) -> int" that takes a
+string and returns the number of unique words in the string.
 
 Example:
-sum_of_digits(12345) -> 15
-sum_of_digits(98765) -> 35
+unique_words('hello world hello') -> 2
 """
 
-def sum_of_digits(n: int) -> int:
-
-    count = 0
-    for digit in str(abs(n)):
-        count += int(digit)
-    return count
-
-"""
-Exercise-6: reverse_string
-Write a function "reverse_string(s: str) -> str" that takes a string 's' and returns the string reversed.
-
-Example:
-reverse_string("hello") -> "olleh"
-reverse_string("world") -> "dlrow"
-"""
-
-def reverse_string(s: str) -> str:
-    reversed = str(s[::-1])
-    return reversed
-
-
-"""
-Exercise-7: sum_of_squares
-Write a function "sum_of_squares(n: int) -> int" that takes an integer 'n' and 
-returns the sum of squares of all integers from 1 to 'n'.
-
-Example:
-sum_of_squares(4) -> 30
-sum_of_squares(5) -> 55
-"""
-
-def sum_of_squares(n: int) -> int:
-    count = 0
-    for digit in range(n+1):
-        count += digit ** 2
-    return count
-
-
-"""
-Exercise-8: collatz_sequence_length
-Write a function "collatz_sequence_length(n: int) -> int" that takes an 
-integer 'n' and returns the length of the Collatz sequence starting with 'n'.
-
-Example:
-collatz_sequence_length(6) -> 9
-collatz_sequence_length(27) -> 112
-"""
-
-def collatz_sequence_length(n: int) -> int:
-    lenght = 1
-    while n != 1:
-        if n % 2 == 0:
-            n //= 2
-        else:
-            n = 3 * n + 1
-        lenght += 1
-
-    return lenght
-
-"""
-Exercise-9: is_leap_year
-Write a function "is_leap_year(year: int) -> bool" that takes an 
-integer 'year' and returns True if 'year' is a leap year, and False otherwise.
-
-Example:
-is_leap_year(2000) -> True
-is_leap_year(1900) -> False
-"""
-
-def is_leap_year(year: int) -> bool:
-    if year % 4 == 0 and year % 100 != 0 or year % 400 == 0:
-        return True
-    else:
-        return False
-
-
-"""
-Exercise-10: count_words
-Write a function "count_words(s: str) -> int" that takes a string 's' and 
-returns the number of words in the string. Assume words are separated by spaces.
-
-Example:
-count_words("Hello world") -> 2
-count_words("This is a test") -> 4
-"""
-
-def count_words(s: str) -> int:
-    count = len(s.split())
-    return count
-
-
-"""
-Exercise-11: is_palindrome
-Write a function "is_palindrome(s: str) -> bool" that takes a string 's' and 
-checks if the string is a palindrome. The function should return True if the 
-string is a palindrome, and False otherwise.
-
-Example:
-is_palindrome("racecar") -> True
-is_palindrome("hello") -> False
-"""
-
-def is_palindrome(s: str) -> bool:
-    if s == s[::-1]:
-        return True
-    return False
-
-
-"""
-Exercise-12: sum_of_multiples
-Write a function "sum_of_multiples(n: int, x: int, y: int) -> int" that 
-takes three integers 'n', 'x', and 'y', and returns the sum of all the 
-numbers from 1 to 'n' (inclusive) that are multiples of 'x' or 'y'.
-
-Example:
-sum_of_multiples(10, 3, 5) -> 33
-sum_of_multiples(20, 7, 11) -> 168
-"""
-
-def sum_of_multiples(n: int, x: int, y: int) -> int:
-    counter = 0
-    for number in range(1, n + 1):
-        if number % x == 0 or number % y == 0:
-            counter += number
-    return counter
-
-
-"""
-Exercise-13: gcd
-Write a function "gcd(a: int, b: int) -> int" that takes two integers 'a' and 'b', 
-and returns their greatest common divisor (GCD).
-
-Example:
-gcd(56, 98) -> 14
-gcd(27, 15) -> 3
-"""
-
-def gcd(a: int, b: int) -> int:
-    while b != 0:
-        a, b = b, a % b
-    return a
-
-"""
-Exercise-14: lcm
-Write a function "lcm(a: int, b: int) -> int" that takes two integers 'a' and 'b', 
-and returns their least common multiple (LCM).
-
-Example:
-lcm(5, 7) -> 35
-lcm(6, 8) -> 24
-"""
-
-def lcm(a: int, b: int) -> int:
-
-    if a == 0 or b == 0:
+def unique_words(my_string: str) -> int:
+    if not my_string:
         return 0
-    for x in range(1, min(a, b) + 1):
-        if a % x == 0 and b % x == 0:
-            return abs(a * b) // gcd(a,b)
+    unique = set(my_string.split(' '))
+    return len(unique)
 
 
 """
-Exercise-15: count_characters
-Write a function "count_characters(s: str, c: str) -> int" that 
-takes a string 's' and a character 'c', and returns the number of occurrences of 'c' in 's'.
+Exercise-7: Word frequency
+Write a function "word_frequency(my_string: str) -> dict" that takes a
+string and returns a dictionary with the frequency of each word in the string.
 
 Example:
-count_characters("hello world", "l") -> 3
-count_characters("apple", "p") -> 2
-
-
+word_frequency('hello world hello') -> {'hello': 2, 'world': 1}
 """
 
-def count_characters(s: str, c: str) -> int:
-    counter = 0
+def word_frequency(my_string: str) -> dict:
+    dictionary = {}
 
-    for char in s:
-        if char.lower() == c.lower():
-            counter += 1
-    return counter
+    for item in set(my_string.split(' ')):
+        dictionary[item] = 0
+    for item in my_string.split(' '):
+        dictionary[item] += 1
+
+    return dictionary
+
 """
-Exercise-16: digit_count
-Write a function "digit_count(n: int) -> int" that takes an 
-integer 'n' and returns the number of digits in 'n'.
+Exercise-8: Count elements in range
+Write a function "count_in_range(my_list: list, start: int, end: int) -> int" that
+takes a list of integers and two integers as range boundaries and
+returns the count of unique elements within that range in the list.
 
 Example:
-digit_count(123) -> 3
-digit_count(4567) -> 4
+count_in_range([1, 2, 3, 4, 5, 4, 3, 2, 1], 2, 4) -> 3
 """
 
-def digit_count(n: int) -> int:
-
-    lenght = len(str(n))
-    return lenght
-
+def count_in_range(my_list: list, start: int, end: int) -> int:
+    def count_in_range(my_list: list, start: int, end: int) -> int:
+        if not my_list:
+            return 0
+        unique = set()
+        for i in my_list:
+            if i in range(start, end + 1):
+                unique.add(i)
+        return len(unique)
 
 """
-Exercise-17: is_power_of_two
-Write a function "is_power_of_two(n: int) -> bool" that takes an integer 'n' 
-and returns True if 'n' is a power of 2, and False otherwise.
+Exercise-9: Swap dictionary keys and values
+Write a function "swap_dict(d: dict) -> dict" that takes a dictionary
+and returns a new dictionary where keys become values and values become keys.
+if you face duplicates, the first key should be saved.
 
 Example:
-is_power_of_two(8) -> True
-is_power_of_two(10) -> False
+swap_dict({1: 'a', 2: 'b', 3: 'c'}) -> {'a': 1, 'b': 2, 'c': 3}
 """
 
-def is_power_of_two(n: int) -> bool:
-    if n <= 0:
-        return False
-    while n > 1:
-        if n % 2 != 0:
-            return False
-        n //= 2
-    return True
+def swap_dict(d: dict) -> dict:
+    inverted_dict = {}
+    for key, value in d.items():
+        if value not in inverted_dict:
+            inverted_dict[value] = key
 
+    return inverted_dict
 
 """
-Exercise-18: sum_of_cubes
-Write a function "sum_of_cubes(n: int) -> int" that takes an integer 'n' 
-and returns the sum of the cubes of all numbers from 1 to 'n'.
+Exercise-10: Subset check
+Write a function "is_subset(set1: set, set2: set) -> bool" that takes two
+sets and returns True if set2 is a subset of set1, and False otherwise.
 
 Example:
-sum_of_cubes(3) -> 36
-sum_of_cubes(4) -> 100
+is_subset({1, 2, 3, 4, 5}, {3, 4, 5}) -> True
 """
 
-def sum_of_cubes(n: int) -> int:
-    result = 0
-    for i in range(1, n+1):
-        result += i ** 3
-    return result
+def is_subset(set1: set, set2: set) -> bool:
+    return set2.issubset(set1)
 
 """
-Exercise-19: is_perfect_square
-Write a function "is_perfect_square(n: int) -> bool" that takes an 
-integer 'n' and returns True if 'n' is a perfect square, and False otherwise.
+Exercise-11: Intersection of lists
+Write a function "list_intersection(list1: list, list2: list) -> list" that takes two
+lists and returns a list of unique elements that are in both lists.
 
 Example:
-is_perfect_square(9) -> True
-is_perfect_square(10) -> False
+list_intersection([1, 2, 3, 4, 5], [3, 4, 5, 6, 7]) -> [3, 4, 5]
 """
 
-def is_perfect_square(n: int) -> bool:
-    if n < 0:
-        return False
-    return n ** 0.5 == int(n ** 0.5)
-
+def list_intersection(list1: list, list2: list) -> list:
+    return list(set(list1).intersection(set(list2)))
 
 """
-Exercise-20: is_armstrong_number
-Write a function "is_armstrong_number(n: int) -> bool" that takes an 
-integer 'n' and returns True if 'n' is an Armstrong number, and False otherwise.
+Exercise-12: Union of lists
+Write a function "list_union(list1: list, list2: list) -> list" that takes two
+lists and returns a list of unique elements that are in either of the lists.
 
 Example:
-is_armstrong_number(153) -> True
-is_armstrong_number(370) -> True
+list_union([1, 2, 3, 4, 5], [3, 4, 5, 6, 7]) -> [1, 2, 3, 4, 5, 6, 7]
 """
 
-def is_armstrong_number(n: int) -> bool:
-    result = 0
-    for digit in str(n):
-        result += int(digit) ** len(str(n))
+def list_union(list1: list, list2: list) -> list:
+    return list(set(list1).union(set(list2)))
 
-    if result == n:
-        return True
-    else:
-        return False
+"""
+Exercise-13: Most frequent element
+Write a function "most_frequent(my_list: list) -> int" that takes a
+list of integers and returns the most frequent element in the list.
+
+Example:
+most_frequent([1, 2, 3, 1, 2, 4, 5, 4, 1]) -> 1
+"""
+
+def most_frequent(my_list: list) -> int:
+    frequency_dict = {}
+    for key in set(my_list):
+        frequency_dict[key] = 0
+    for key in my_list:
+        frequency_dict[key] += 1
+    return max(frequency_dict, key=frequency_dict.get)
+
+"""
+Exercise-14: Least frequent element
+Write a function "least_frequent(my_list: list) -> int" that takes a
+list of integers and returns the least frequent element in the list.
+
+Example:
+least_frequent([1, 2, 3, 1, 2, 4, 5, 4, 1]) -> 3
+"""
+
+def least_frequent(my_list: list) -> int:
+    frequency_dict = {}
+    for key in set(my_list):
+        frequency_dict[key] = 0
+    for key in my_list:
+        frequency_dict[key] += 1
+    return min(frequency_dict, key=frequency_dict.get)
+
