@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Пользователи</title>
+  </head>
+  <body>
+    <h1>Список пользователей</h1>
+    <ul>
+      {% for user in users %}
+      <li>
+        {{ user.id }} <br>
+        {{ user.first_name }} {{ user.last_name }} <br>
+        {{ user.username }} <br>
+        {{ user.email }} <br>
+        <a href="/users/{{ user.id }}">Профиль</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+    
+</html>
