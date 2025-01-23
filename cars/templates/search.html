@@ -1,0 +1,19 @@
+<body>
+    <h1>Search Cars</h1>
+    <form action="/cars/search" method="get">
+        <input type="text" name="car_name" value="{{ car_name }}" placeholder="Введите название машины">
+        <button type="submit">Поиск</button>
+    </form>
+
+
+    {% if cars %}
+        <h2>Found Cars:</h2>
+        <ul>
+            {% for car in cars %}
+                <li>{{ car.name }} </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No cars found</p>
+    {% endif %}
+</body>
