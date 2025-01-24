@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Response
-
+from fastapi import FastAPI, Response, HTTPException
+import faker
 from .cars import create_cars
 from typing import List, Dict
 
@@ -20,7 +20,7 @@ def get_cars(page: int = 1, limit: int = 10) -> List[Dict]:
 def get_car_by_id(id: int):
     car = next((car for car in cars if car["id"] == id), None)
     if car is None:
-        return Response("Not found", status_code=404)
+        raise HTTPException(status_code=404, detail="Машина не найдена")
     return car
 
 
