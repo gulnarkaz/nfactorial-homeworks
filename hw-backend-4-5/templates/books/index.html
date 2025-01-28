@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Кітап.kz - Список книг</title>
+</head>
+<body>
+    <h1>Список книг</h1>
+    <a href="/books/new">Добавить книгу</a>
+
+    <ul>
+        {% if books|length > 0 %}
+            {% for book in books %}
+                <li>
+                    <a href="/books/{{ book.id }}">{{ book.title }}</a> 
+                    ({{ book.author }}, {{ book.year }}, {{ book.total_pages }} страниц, {{ book.genre }})
+
+                     <a href="/books/{{ book.id }}/edit">
+                        <button>Редактировать</button>
+                    </a>
+
+                    <form action="/books/{{ book.id }}/delete" method="post" >
+                        <button type="submit">Удалить</button>
+                    </form>
+                </li>
+            {% endfor %}
+        {% else %}
+            <p>Книг пока нет в базе данных.</p>
+        {% endif %}
+    </ul>
+
+    <div>
+        {% if page > 1 %}
+            <a href="/books?page={{ page - 1 }}">⬅ Назад</a>
+        {% endif %}
+        <span>Страница {{ page }} из {{ total_pages }}</span>
+        {% if page < total_pages %}
+            <a href="/books?page={{ page + 1 }}">Вперед ➡</a>
+        {% endif %}
+    </div>
+</body>
+</html>

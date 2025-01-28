@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Кітап.kz - Редактировать книгу</title>
+</head>
+<body>
+    <h1>Редактировать книгу</h1>
+    <form action="/books/{{ book.id }}/edit" method="post">
+        <label for="title">Название:</label>
+        <input type="text" name="title" value="{{ book.title }}" required>
+        
+        <label for="author">Автор:</label>
+        <input type="text" name="author" value="{{ book.author }}" required>
+        
+        <label for="year">Год издания:</label>
+        <input type="number" name="year" value="{{ book.year }}" required>
+        
+        <label for="total_pages">Количество страниц:</label>
+        <input type="number" name="total_pages" value="{{ book.total_pages }}" required>
+        
+        <label for="genre">Жанр:</label>
+        <input type="text" name="genre" value="{{ book.genre }}" required>
+        
+        <button type="submit">Сохранить изменения</button>
+    </form>
+    <a href="/books/{{ book.id }}">Отмена</a>
+</body>
+</html>
