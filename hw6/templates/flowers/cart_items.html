@@ -1,0 +1,10 @@
+<h1>Cart</h1>
+<ul>
+    {% for flower in flowers %}
+    <li>{{ flower.name }}  {{ flower.price }}</li>
+    {% endfor %}
+</ul>
+<p>Total: {{ total_price }}</p>
+<form action="/purchased" method="post">
+    <button type="submit">Purchase</button>
+</form>
