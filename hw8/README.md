@@ -1,6 +1,4 @@
-<<<<<<< HEAD
-# nfactorial-homeworks
-All my assignments on backend-Python nfactorial course
+Задание hw8 
 =======
 
 В этом задании мы переведем наш API на SQLAlchemy.
