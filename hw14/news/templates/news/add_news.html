@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавить новость</title>
+</head>
+<body>
+    <h1>Добавить новость</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ news_form.as_p }}
+        <button type="submit">Сохранить новость</button>
+    </form>
+    <p><a href="{% url 'news:news_list' %}">Назад к списку новостей</a></p>
+</body>
+</html>
