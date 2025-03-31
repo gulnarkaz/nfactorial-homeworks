@@ -136,3 +136,37 @@ class DeleteCommentView(DeleteView):
             from django.core.exceptions import PermissionDenied
             raise PermissionDenied
         return super().dispatch(request, *args, **kwargs)
+    
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from .models import News
+from .serializers import NewsSerializer
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticatedOrReadOnly]) # Только авторизованные могут добавлять
+def news_add_api(request):
+    serializer = NewsSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(author=request.user) # Автоматически устанавливаем автора
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+from rest_framework import generics
+
+class NewsDetailAPIView(generics.RetrieveAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly] # Читать могут все, изменять - авторизованные
+    
+class NewsDeleteAPIView(generics.DestroyAPIView):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly] # Удалять могут только авторизованные
+    
+class NewsListAPIView(generics.ListAPIView):
+    queryset = News.objects.all().order_by('-created_at')
+    serializer_class = NewsSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly] # Читать могут все
+    

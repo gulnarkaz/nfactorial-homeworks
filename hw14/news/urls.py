@@ -12,4 +12,10 @@ urlpatterns = [
     path('sign-up/', views.SignUpView.as_view(), name='signup'),
     path('delete/<int:pk>/', views.DeleteNewsView.as_view(), name='delete_news'),
     path('delete_comment/<int:pk>/', views.DeleteCommentView.as_view(), name='delete_comment'),
+    
+    # API URLs
+    path('api/news/', views.NewsListAPIView.as_view(), name='news_list_api'),
+    path('api/news/add/', views.news_add_api, name='news_add_api'),
+    path('api/news/<int:pk>/', views.NewsDetailAPIView.as_view(), name='news_detail_api'),
+    path('api/news/delete/<int:pk>/', views.NewsDeleteAPIView.as_view(), name='news_delete_api'),
 ]
