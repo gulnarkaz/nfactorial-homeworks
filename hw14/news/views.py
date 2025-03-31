@@ -1,9 +1,25 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.utils import timezone
 from .models import News, Comment
-from .forms import NewsForm, CommentForm  # Мы создадим эти формы позже
+from .forms import NewsForm, CommentForm 
+from django.views import View
 
+class NewsUpdateView(View):
+    template_name = 'news/edit_news.html'
+    form_class = NewsForm
+
+    def get(self, request, pk):
+        news = get_object_or_404(News, pk=pk)
+        form = self.form_class(instance=news)
+        return render(request, self.template_name, {'form': form, 'news': news})
+
+    def post(self, request, pk):
+        news = get_object_or_404(News, pk=pk)
+        form = self.form_class(request.POST, instance=news)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('news:news_detail', args=[news.pk]))
+        return render(request, self.template_name, {'form': form, 'news': news, 'errors': form.errors})
 def news_list(request):
     news = News.objects.all().order_by('-created_at')
     return render(request, 'news/news_list.html', {'news': news})
@@ -28,9 +44,7 @@ def add_news(request):
     if request.method == 'POST':
         news_form = NewsForm(request.POST)
         if news_form.is_valid():
-            new_news = news_form.save(commit=False)
-            new_news.created_at = timezone.now()
-            new_news.save()
+            new_news = news_form.save()
             return redirect(reverse('news:news_detail', args=[new_news.pk]))
     else:
         news_form = NewsForm()

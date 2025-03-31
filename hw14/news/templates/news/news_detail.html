@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ news.title }}</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}{{ news.title }}{% endblock %}
+
+{% block content %}
     <h1>{{ news.title }}</h1>
     <p>Опубликовано: {{ news.created_at }}</p>
     <div class="content">
@@ -12,8 +11,8 @@
 
     <h2>Комментарии</h2>
     <ul>
-        {% for comment in comments %}
-            <li>{{ comment.content }} ({{ comment.created_at }})</li>
+        {% for comment in news.comment_set.all %}
+            <li class="comment">{{ comment.content }} ({{ comment.created_at }})</li>
         {% empty %}
             <li>Нет комментариев.</li>
         {% endfor %}
@@ -27,5 +26,5 @@
     </form>
 
     <p><a href="{% url 'news:news_list' %}">Назад к списку новостей</a></p>
-</body>
-</html>
+    <p><a href="{% url 'news:edit_news' news.pk %}">Редактировать новость</a></p>
+{% endblock %}

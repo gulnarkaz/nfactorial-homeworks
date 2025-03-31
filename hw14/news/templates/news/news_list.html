@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Новости</title>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{% block title %}Новости{% endblock %}
+
+{% block content %}
     <h1>Последние новости</h1>
     <ul>
         {% for item in news %}
@@ -13,5 +12,4 @@
         {% endfor %}
     </ul>
     <p><a href="{% url 'news:add_news' %}">Добавить новость</a></p>
-</body>
-</html>
+{% endblock %}

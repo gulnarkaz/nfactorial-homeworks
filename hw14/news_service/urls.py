@@ -16,13 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('news/', include('news.urls')),
 ]
-
-from django.conf import settings
 
 if settings.DEBUG:
     import debug_toolbar

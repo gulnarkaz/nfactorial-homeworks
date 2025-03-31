@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Новостной сервис{% endblock %}</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+        h1, h2 {
+            color: navy;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            margin-bottom: 10px;
+        }
+        a {
+            color: darkgreen;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+        .comment {
+            padding: 5px;
+            border-bottom: 1px dotted #eee;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Мой Новостной Сервис</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'news:news_list' %}">Главная</a></li>
+                <li><a href="{% url 'news:add_news' %}">Добавить новость</a></li>
+            </ul>
+        </nav>
+        <hr>
+    </header>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <footer>
+        <hr>
+        <p>&copy; 2025 Мой Новостной Сервис</p>
+    </footer>
+</body>
+</html>
