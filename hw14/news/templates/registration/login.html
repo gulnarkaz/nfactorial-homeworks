@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+    <h1>Вход</h1>
+    {% if form.errors %}
+        <p style="color: red;">Неправильное имя пользователя или пароль.</p>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Войти</button>
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+    <p>Нет аккаунта? <a href="{% url 'signup' %}">Зарегистрироваться</a></p>
+{% endblock %}

@@ -9,4 +9,7 @@ urlpatterns = [
     path('add/', views.add_news, name='add_news'),
     path('102/', views.news_detail_102, name='news_detail_102'), 
     path('<int:pk>/edit/', views.NewsUpdateView.as_view(), name='edit_news'),
+    path('sign-up/', views.SignUpView.as_view(), name='signup'),
+    path('delete/<int:pk>/', views.DeleteNewsView.as_view(), name='delete_news'),
+    path('delete_comment/<int:pk>/', views.DeleteCommentView.as_view(), name='delete_comment'),
 ]

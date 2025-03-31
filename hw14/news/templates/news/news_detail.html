@@ -4,7 +4,7 @@
 
 {% block content %}
     <h1>{{ news.title }}</h1>
-    <p>Опубликовано: {{ news.created_at }}</p>
+    <p>Опубликовано: {{ news.created_at }}{% if news.author %} автором: {{ news.author.username }}{% endif %}</p>
     <div class="content">
         {{ news.content|linebreaksbr }}
     </div>
@@ -12,19 +12,43 @@
     <h2>Комментарии</h2>
     <ul>
         {% for comment in news.comment_set.all %}
-            <li class="comment">{{ comment.content }} ({{ comment.created_at }})</li>
+            <li class="comment">{{ comment.content }} ({{ comment.created_at }}){% if comment.author %} - {{ comment.author.username }}{% endif %}
+                {% if user.is_authenticated and comment.author == user %}
+                    <form method="post" action="{% url 'news:delete_comment' comment.pk %}">
+                        {% csrf_token %}
+                        <button type="submit">Удалить</button>
+                    </form>
+                {% endif %}
+            </li>
         {% empty %}
             <li>Нет комментариев.</li>
         {% endfor %}
     </ul>
 
     <h2>Добавить комментарий</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ comment_form.as_p }}
-        <button type="submit">Добавить комментарий</button>
-    </form>
+    {% if user.is_authenticated %}
+        <form method="post">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">Добавить комментарий</button>
+        </form>
+    {% else %}
+        <p>Доступно для авторизованных пользователей.</p>
+        <p><a href="{% url 'login' %}?next={{ request.path }}">Войти, чтобы оставить комментарий</a></p>
+    {% endif %}
 
     <p><a href="{% url 'news:news_list' %}">Назад к списку новостей</a></p>
-    <p><a href="{% url 'news:edit_news' news.pk %}">Редактировать новость</a></p>
+    {% if user.is_authenticated and news.author == user %}
+        <p><a href="{% url 'news:edit_news' news.pk %}">Редактировать новость</a>
+        <form method="post" action="{% url 'news:delete_news' news.pk %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit">Удалить новость</button>
+        </form>
+        </p>
+    {% elif user.has_perm('news.delete_news') %}
+        <form method="post" action="{% url 'news:delete_news' news.pk %}" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit">Удалить новость (модератор)</button>
+        </form>
+    {% endif %}
 {% endblock %}
